@@ -12,7 +12,7 @@ const router = express.Router();
 // GET 
 router.get('/', getAllScreenings);
 
-// GET 
+// GET.
 router.get('/:id', getScreeningById);
 
 // POST 
