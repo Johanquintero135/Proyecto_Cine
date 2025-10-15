@@ -1,18 +1,18 @@
-// src/controllers/tickets.controller.js
+
 import { ticketsDB, screeningsDB, getNextId } from '../data/moviesData.js';
 
-// ✅ GET /api/tickets - List all tickets with optional filtering
+// GET 
 export const getAllTickets = (req, res) => {
   try {
     let result = [...ticketsDB];
 
-    // Filter by screeningId
+    //Filtrar por screeningId
     if (req.query.screeningId) {
       const screeningId = parseInt(req.query.screeningId);
       result = result.filter(t => t.screeningId === screeningId);
     }
 
-    // Filter by price range
+    // Filtrar por rango de precios
     if (req.query.minPrice) {
       const minPrice = parseFloat(req.query.minPrice);
       result = result.filter(t => t.price >= minPrice);
@@ -23,7 +23,7 @@ export const getAllTickets = (req, res) => {
       result = result.filter(t => t.price <= maxPrice);
     }
 
-    // Pagination
+    // Paginación
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const startIndex = (page - 1) * limit;
@@ -47,7 +47,7 @@ export const getAllTickets = (req, res) => {
   }
 };
 
-// ✅ GET /api/tickets/:id - Get ticket by ID
+// GET 
 export const getTicketById = (req, res) => {
   try {
     const id = parseInt(req.params.id);
@@ -79,17 +79,17 @@ export const getTicketById = (req, res) => {
   }
 };
 
-// ✅ POST /api/tickets - Create new ticket
+// POST
 export const createTicket = (req, res) => {
   try {
     let { screeningId, seatNumber, price, purchaseDate } = req.body;
 
-    // Convert types
+    // Convertir tipos
     screeningId = parseInt(screeningId);
     seatNumber = parseInt(seatNumber);
     price = parseFloat(price);
 
-    // Validation
+    // Validacion
     if (!screeningId || !seatNumber || !price || !purchaseDate) {
       return res.status(400).json({
         success: false,
@@ -160,7 +160,7 @@ export const createTicket = (req, res) => {
   }
 };
 
-// ✅ PUT /api/tickets/:id - Update ticket
+// PUT 
 export const updateTicket = (req, res) => {
   try {
     const id = parseInt(req.params.id);
@@ -182,7 +182,7 @@ export const updateTicket = (req, res) => {
 
     const { screeningId, seatNumber, price, purchaseDate } = req.body;
 
-    // Validate screeningId if provided
+    // Validar screeningId si se proporciona
     if (screeningId !== undefined) {
       const screeningExists = screeningsDB.find(s => s.id === screeningId);
       if (!screeningExists) {
@@ -216,7 +216,7 @@ export const updateTicket = (req, res) => {
   }
 };
 
-// ✅ DELETE /api/tickets/:id - Delete ticket
+//  DELETE 
 export const deleteTicket = (req, res) => {
   try {
     const id = parseInt(req.params.id);

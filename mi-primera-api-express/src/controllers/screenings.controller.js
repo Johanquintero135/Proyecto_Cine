@@ -1,24 +1,24 @@
 import { screeningsDB, moviesDB, getNextId } from '../data/moviesData.js';
 
-// GET /api/screenings - List all screenings with optional filtering
+// GET
 export const getAllScreenings = (req, res) => {
   try {
     let result = [...screeningsDB];
     
-    // Filter by movieId
+    // Filtrar por movieId
     if (req.query.movieId) {
       const movieId = parseInt(req.query.movieId);
       result = result.filter(s => s.movieId === movieId);
     }
     
-    // Filter by room
+    // Filtrar por habitación
     if (req.query.room) {
       result = result.filter(s => 
         s.room.toLowerCase().includes(req.query.room.toLowerCase())
       );
     }
     
-    // Pagination
+    // Paginacion
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const startIndex = (page - 1) * limit;
@@ -42,7 +42,7 @@ export const getAllScreenings = (req, res) => {
   }
 };
 
-// GET /api/screenings/:id - Get screening by ID
+// GET 
 export const getScreeningById = (req, res) => {
   try {
     const id = parseInt(req.params.id);
@@ -78,12 +78,12 @@ export const getScreeningById = (req, res) => {
   }
 };
 
-// POST /api/screenings - Create new screening
+// POST 
 export const createScreening = (req, res) => {
   try {
     const { movieId, room, schedule, availableSeats } = req.body;
     
-    // Validation
+    // Validacion
     if (!movieId || !room || !schedule || availableSeats === undefined) {
       return res.status(400).json({
         success: false,
@@ -92,7 +92,7 @@ export const createScreening = (req, res) => {
       });
     }
     
-    // Validate movieId exists
+    // Validar que movieId existe
     const movieExists = moviesDB.find(m => m.id === movieId);
     if (!movieExists) {
       return res.status(400).json({
@@ -134,7 +134,7 @@ export const createScreening = (req, res) => {
   }
 };
 
-// PUT /api/screenings/:id - Update screening
+// PUT 
 export const updateScreening = (req, res) => {
   try {
     const id = parseInt(req.params.id);
@@ -159,7 +159,7 @@ export const updateScreening = (req, res) => {
     
     const { movieId, room, schedule, availableSeats } = req.body;
     
-    // Validate movieId if provided
+    // Validar movieId si se proporciona
     if (movieId !== undefined) {
       const movieExists = moviesDB.find(m => m.id === movieId);
       if (!movieExists) {
@@ -179,7 +179,7 @@ export const updateScreening = (req, res) => {
       });
     }
     
-    // Update only provided fields
+    // Actualizar solo los campos proporcionados
     screeningsDB[screeningIndex] = {
       ...screeningsDB[screeningIndex],
       ...(movieId && { movieId }),
@@ -202,7 +202,7 @@ export const updateScreening = (req, res) => {
   }
 };
 
-// DELETE /api/screenings/:id - Delete screening
+// DELETE 
 export const deleteScreening = (req, res) => {
   try {
     const id = parseInt(req.params.id);

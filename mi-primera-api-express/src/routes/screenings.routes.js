@@ -9,20 +9,19 @@ import {
 
 const router = express.Router();
 
-// GET /api/screenings - List all screenings (with optional filters)
-// Query params: ?movieId=1&room=IMAX&page=1&limit=10
+// GET 
 router.get('/', getAllScreenings);
 
-// GET /api/screenings/:id - Get screening by ID
+// GET 
 router.get('/:id', getScreeningById);
 
-// POST /api/screenings - Create new screening
+// POST 
 router.post('/', createScreening);
 
-// PUT /api/screenings/:id - Update screening
+// PUT 
 router.put('/:id', updateScreening);
 
-// DELETE /api/screenings/:id - Delete screening
+// DELETE
 router.delete('/:id', deleteScreening);
 
 export default router;

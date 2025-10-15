@@ -1,4 +1,4 @@
-// Movies Database
+// Movies base de datos
 export let moviesDB = [
   {
     id: 1,
@@ -37,7 +37,7 @@ export let moviesDB = [
   }
 ];
 
-// Screenings Database
+// Screenings base de datos
 export let screeningsDB = [
   {
     id: 1,
@@ -76,7 +76,7 @@ export let screeningsDB = [
   }
 ];
 
-// Tickets Database
+// Tickets base de datos
 export let ticketsDB = [
   {
     id: 1,
@@ -115,7 +115,7 @@ export let ticketsDB = [
   }
 ];
 
-// Helper function to get next ID
+
 export const getNextId = (database) => {
   if (database.length === 0) return 1;
   return Math.max(...database.map(item => item.id)) + 1;

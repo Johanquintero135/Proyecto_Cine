@@ -1,24 +1,24 @@
 import { moviesDB, getNextId } from '../data/moviesData.js';
 
-// GET /api/movies - List all movies with optional filtering and pagination
+// GET 
 export const getAllMovies = (req, res) => {
   try {
     let result = [...moviesDB];
     
-    // Query string filtering by genre
+    // Filtrado de cadenas de consulta por género
     if (req.query.genre) {
       result = result.filter(movie => 
         movie.genre.toLowerCase() === req.query.genre.toLowerCase()
       );
     }
     
-    // Query string filtering by rating
+    // Filtrado de cadenas de consulta por calificación
     if (req.query.minRating) {
       const minRating = parseFloat(req.query.minRating);
       result = result.filter(movie => movie.rating >= minRating);
     }
     
-    // Pagination
+    // Paginacion
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const startIndex = (page - 1) * limit;
@@ -42,7 +42,7 @@ export const getAllMovies = (req, res) => {
   }
 };
 
-// GET /api/movies/:id - Get movie by ID
+// GET 
 export const getMovieById = (req, res) => {
   try {
     const id = parseInt(req.params.id);
@@ -78,12 +78,12 @@ export const getMovieById = (req, res) => {
   }
 };
 
-// POST /api/movies - Create new movie
+// POST 
 export const createMovie = (req, res) => {
   try {
     const { title, genre, duration, rating } = req.body;
     
-    // Validation
+    // Validacion
     if (!title || !genre || !duration || !rating) {
       return res.status(400).json({
         success: false,
@@ -132,7 +132,7 @@ export const createMovie = (req, res) => {
   }
 };
 
-// PUT /api/movies/:id - Update movie
+// PUT 
 export const updateMovie = (req, res) => {
   try {
     const id = parseInt(req.params.id);
@@ -157,7 +157,7 @@ export const updateMovie = (req, res) => {
     
     const { title, genre, duration, rating } = req.body;
     
-    // Validation
+    // Validacion
     if (duration !== undefined && (typeof duration !== 'number' || duration <= 0)) {
       return res.status(400).json({
         success: false,
@@ -174,7 +174,7 @@ export const updateMovie = (req, res) => {
       });
     }
     
-    // Update only provided fields
+    // Actualizar solo los campos proporcionados
     moviesDB[movieIndex] = {
       ...moviesDB[movieIndex],
       ...(title && { title }),
@@ -197,7 +197,7 @@ export const updateMovie = (req, res) => {
   }
 };
 
-// DELETE /api/movies/:id - Delete movie
+// DELETE 
 export const deleteMovie = (req, res) => {
   try {
     const id = parseInt(req.params.id);
