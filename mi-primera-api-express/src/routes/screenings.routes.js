@@ -9,7 +9,7 @@ import {
 
 const router = express.Router();
 
-// GET 
+// GET.
 router.get('/', getAllScreenings);
 
 // GET.
